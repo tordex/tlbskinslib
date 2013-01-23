@@ -1,0 +1,923 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:attributeGroup name="core_attributes">
+        <xs:attribute name="command" type="xs:string"/>
+        <xs:attribute name="mod" type="xs:string"/>
+        <xs:attribute name="x" type="xs:integer"/>
+        <xs:attribute name="y" type="xs:integer"/>
+        <xs:attribute name="width" type="xs:integer"/>
+        <xs:attribute name="height" type="xs:integer"/>
+        <xs:attribute name="flex" type="xs:integer"/>
+        <xs:attribute name="margin-left" type="xs:integer"/>
+        <xs:attribute name="margin-right" type="xs:integer"/>
+        <xs:attribute name="margin-top" type="xs:integer"/>
+        <xs:attribute name="margin-bottom" type="xs:integer"/>
+        <xs:attribute name="min-width" type="xs:integer"/>
+        <xs:attribute name="min-height" type="xs:integer"/>
+        <xs:attribute name="float" type="xs:boolean"/>
+        <xs:attribute name="valign">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="top"/>
+                    <xs:enumeration value="bottom"/>
+                    <xs:enumeration value="center"/>
+                    <xs:enumeration value="stretch"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="halign">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="left"/>
+                    <xs:enumeration value="right"/>
+                    <xs:enumeration value="center"/>
+                    <xs:enumeration value="stretch"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="sizing_margins">
+        <xs:attribute name="sizing-margin-left" type="xs:integer"/>
+        <xs:attribute name="sizing-margin-right" type="xs:integer"/>
+        <xs:attribute name="sizing-margin-top" type="xs:integer"/>
+        <xs:attribute name="sizing-margin-bottom" type="xs:integer"/>
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="state_attributes">
+        <xs:attribute name="value">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="normal"/>
+                    <xs:enumeration value="over"/>
+                    <xs:enumeration value="down"/>
+                    <xs:enumeration value="disabled"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="mod_attributes">
+        <xs:attribute name="value" type="xs:integer"/>
+        <xs:attribute name="string" type="xs:string"/>
+    </xs:attributeGroup>
+
+    <xs:complexType name="brush_type">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="stop">
+                <xs:complexType>
+                    <xs:attribute name="offset">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:integer">
+                                <xs:minInclusive value="0"/>
+                                <xs:maxInclusive value="100"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="color" type="xs:string" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="type">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="xGradient"/>
+                    <xs:enumeration value="yGradient"/>
+                    <xs:enumeration value="solid"/>
+                    <xs:enumeration value="radial"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="color" type="xs:string" />
+        <xs:attribute name="color1" type="xs:string" />
+        <xs:attribute name="color2" type="xs:string" />
+    </xs:complexType>
+
+    <xs:complexType name="pen_type">
+        <xs:attribute name="type">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="solid"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="color" type="xs:string" />
+        <xs:attribute name="width" type="xs:integer" />
+    </xs:complexType>
+
+    <xs:simpleType name="histogram_start_from">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="left"/>
+            <xs:enumeration value="right"/>
+            <xs:enumeration value="top"/>
+            <xs:enumeration value="bottom"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="histogram_direction">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="reverse"/>
+            <xs:enumeration value="straight"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="skin">
+        <xs:annotation>
+            <xs:documentation>The root element.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence maxOccurs="unbounded">
+                <xs:any />
+            </xs:sequence>
+            <xs:attributeGroup ref="core_attributes" />
+            <xs:attribute name="type" type="xs:string"/>
+            <xs:attribute name="fit">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="none"/>
+                        <xs:enumeration value="width"/>
+                        <xs:enumeration value="height"/>
+                        <xs:enumeration value="min"/>
+                        <xs:enumeration value="max"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="shrink">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="none"/>
+                        <xs:enumeration value="width"/>
+                        <xs:enumeration value="height"/>
+                        <xs:enumeration value="both"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:attributeGroup name="image_attributes">
+        <xs:attributeGroup ref="sizing_margins" />
+        <xs:attribute name="states" type="xs:integer"/>
+        <xs:attribute name="vertical" type="xs:boolean"/>
+        <xs:attribute name="file" type="xs:anyURI"/>
+    </xs:attributeGroup>
+
+    <xs:complexType name="image_state">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="mod">
+                <xs:complexType>
+                    <xs:attributeGroup ref="image_attributes" />
+                    <xs:attributeGroup ref="mod_attributes" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="image_attributes" />
+        <xs:attributeGroup ref="state_attributes" />
+    </xs:complexType>
+
+    <xs:complexType name="image_mod">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="state">
+                <xs:complexType>
+                    <xs:attributeGroup ref="image_attributes" />
+                    <xs:attributeGroup ref="state_attributes" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="image_attributes" />
+        <xs:attributeGroup ref="mod_attributes" />
+    </xs:complexType>
+
+    <xs:element name="image">
+        <xs:annotation>
+            <xs:documentation>Draw image.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                    <xs:element name="state" type="image_state" />
+                    <xs:element name="mod" type="image_mod" />
+                </xs:choice>
+            </xs:sequence>
+            <xs:attributeGroup ref="core_attributes" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="chart-image-h-row">
+        <xs:annotation>
+            <xs:documentation>Draw horizontal row chart with the images.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                    <xs:element name="value">
+                        <xs:complexType>
+                            <xs:choice minOccurs="1" maxOccurs="unbounded">
+                                <xs:element name="state" type="image_state" />
+                                <xs:element name="mod" type="image_mod" />
+                            </xs:choice>
+                            <xs:attribute name="src" type="xs:string" use="required"/>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:choice>
+            </xs:sequence>
+            <xs:attributeGroup ref="core_attributes" />
+            <xs:attribute name="draw">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="tile"/>
+                        <xs:enumeration value="stretch"/>
+                        <xs:enumeration value="crop"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="align">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="left"/>
+                        <xs:enumeration value="right"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="chart-image-v-row">
+        <xs:annotation>
+            <xs:documentation>Draw vertical row chart with the images.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                    <xs:element name="value">
+                        <xs:complexType>
+                            <xs:choice minOccurs="1" maxOccurs="unbounded">
+                                <xs:element name="state" type="image_state" />
+                                <xs:element name="mod" type="image_mod" />
+                            </xs:choice>
+                            <xs:attribute name="src" type="xs:string" use="required"/>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:choice>
+            </xs:sequence>
+            <xs:attributeGroup ref="core_attributes" />
+            <xs:attribute name="draw">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="tile"/>
+                        <xs:enumeration value="stretch"/>
+                        <xs:enumeration value="crop"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="align">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="top"/>
+                        <xs:enumeration value="bottom"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="chart-image-pie">
+        <xs:annotation>
+            <xs:documentation>Draw chart with the images. Images are cropped by pie.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                    <xs:element name="value">
+                        <xs:complexType>
+                            <xs:choice minOccurs="1" maxOccurs="unbounded">
+                                <xs:element name="state" type="image_state" />
+                                <xs:element name="mod" type="image_mod" />
+                            </xs:choice>
+                            <xs:attribute name="src" type="xs:string" use="required"/>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:choice>
+            </xs:sequence>
+            <xs:attributeGroup ref="core_attributes" />
+            <xs:attribute name="start-angle" type="xs:integer" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:attributeGroup name="text_attributes">
+        <xs:attribute name="color" type="xs:string"/>
+        <xs:attribute name="glow-color" type="xs:string"/>
+    </xs:attributeGroup>
+
+    <xs:element name="text">
+        <xs:annotation>
+            <xs:documentation>Draw text parameter.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                    <xs:element name="state">
+                        <xs:complexType>
+                            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                                <xs:element name="mod">
+                                    <xs:complexType>
+                                        <xs:attributeGroup ref="text_attributes" />
+                                        <xs:attributeGroup ref="mod_attributes" />
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                            <xs:attributeGroup ref="text_attributes" />
+                            <xs:attributeGroup ref="state_attributes" />
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="mod">
+                        <xs:complexType>
+                            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                                <xs:element name="state">
+                                    <xs:complexType>
+                                        <xs:attributeGroup ref="text_attributes" />
+                                        <xs:attributeGroup ref="state_attributes" />
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                            <xs:attributeGroup ref="text_attributes" />
+                            <xs:attributeGroup ref="mod_attributes" />
+                        </xs:complexType>
+                    </xs:element>
+                </xs:choice>
+            </xs:sequence>
+            <xs:attributeGroup ref="core_attributes" />
+            <xs:attribute name="src" type="xs:string" />
+            <xs:attribute name="font" type="xs:string" />
+            <xs:attribute name="bold" type="xs:boolean" />
+            <xs:attribute name="italic" type="xs:boolean" />
+            <xs:attribute name="antialias" type="xs:boolean" />
+            <xs:attribute name="glow-size" type="xs:integer" />
+            <xs:attribute name="font-size" type="xs:integer" />
+            <xs:attribute name="units">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="none"/>
+                        <xs:enumeration value="left"/>
+                        <xs:enumeration value="right"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="size-type">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="cell"/>
+                        <xs:enumeration value="char"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="align">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="left"/>
+                        <xs:enumeration value="right"/>
+                        <xs:enumeration value="center"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="v-center" type="xs:boolean" />
+            <xs:attribute name="single-line" type="xs:boolean" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="text-formated">
+        <xs:annotation>
+            <xs:documentation>Draw formated text string.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                    <xs:element name="state">
+                        <xs:complexType>
+                            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                                <xs:element name="mod">
+                                    <xs:complexType>
+                                        <xs:attributeGroup ref="text_attributes" />
+                                        <xs:attributeGroup ref="mod_attributes" />
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                            <xs:attributeGroup ref="text_attributes" />
+                            <xs:attributeGroup ref="state_attributes" />
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="mod">
+                        <xs:complexType>
+                            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                                <xs:element name="state">
+                                    <xs:complexType>
+                                        <xs:attributeGroup ref="text_attributes" />
+                                        <xs:attributeGroup ref="state_attributes" />
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                            <xs:attributeGroup ref="text_attributes" />
+                            <xs:attributeGroup ref="mod_attributes" />
+                        </xs:complexType>
+                    </xs:element>
+                </xs:choice>
+            </xs:sequence>
+            <xs:attributeGroup ref="core_attributes" />
+            <xs:attribute name="text" type="xs:string" />
+            <xs:attribute name="font" type="xs:string" />
+            <xs:attribute name="bold" type="xs:boolean" />
+            <xs:attribute name="italic" type="xs:boolean" />
+            <xs:attribute name="antialias" type="xs:boolean" />
+            <xs:attribute name="glow-size" type="xs:integer" />
+            <xs:attribute name="font-size" type="xs:integer" />
+            <xs:attribute name="units-side">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="left"/>
+                        <xs:enumeration value="right"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="units" type="xs:string" />
+            <xs:attribute name="size-type">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="cell"/>
+                        <xs:enumeration value="char"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="align">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="left"/>
+                        <xs:enumeration value="right"/>
+                        <xs:enumeration value="center"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="v-center" type="xs:boolean" />
+            <xs:attribute name="single-line" type="xs:boolean" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="histogram-color">
+        <xs:annotation>
+            <xs:documentation>Color histogram.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="brush" type="brush_type" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="pen" type="pen_type" minOccurs="0" maxOccurs="1"/>
+            </xs:all>
+            <xs:attributeGroup ref="core_attributes" />
+            <xs:attribute name="src" type="xs:string" />
+            <xs:attribute name="max" type="xs:string" />
+            <xs:attribute name="start-from" type="histogram_start_from"/>
+            <xs:attribute name="dir" type="histogram_direction"/>
+            <xs:attribute name="step" type="xs:integer" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="colored_state">
+        <xs:choice minOccurs="1" maxOccurs="unbounded">
+            <xs:element name="mod">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="brush" type="brush_type" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="pen" type="pen_type" minOccurs="0" maxOccurs="1"/>
+                    </xs:all>
+                    <xs:attributeGroup ref="mod_attributes" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="brush" type="brush_type" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="pen" type="pen_type" minOccurs="0" maxOccurs="1"/>
+        </xs:choice>
+        <xs:attributeGroup ref="state_attributes" />
+    </xs:complexType>
+
+    <xs:complexType name="colored_mod">
+        <xs:choice minOccurs="1" maxOccurs="unbounded">
+            <xs:element name="state">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="brush" type="brush_type" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="pen" type="pen_type" minOccurs="0" maxOccurs="1"/>
+                    </xs:all>
+                    <xs:attributeGroup ref="state_attributes" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="brush" type="brush_type" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="pen" type="pen_type" minOccurs="0" maxOccurs="1"/>
+        </xs:choice>
+        <xs:attributeGroup ref="mod_attributes" />
+    </xs:complexType>
+
+    <!-- /////////////////////////////////////////////////////////////////////////////// -->
+
+    <xs:element name="rect">
+        <xs:annotation>
+            <xs:documentation>Draw the simple rectangle.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                    <xs:element name="state" type="colored_state" />
+                    <xs:element name="mod" type="colored_mod" />
+                </xs:choice>
+            </xs:sequence>
+            <xs:attributeGroup ref="core_attributes" />
+        </xs:complexType>
+    </xs:element>
+
+    <!-- /////////////////////////////////////////////////////////////////////////////// -->
+
+    <xs:element name="h-box">
+        <xs:annotation>
+            <xs:documentation>Horizontal box. All child elements are arranged horizontally in this box.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence maxOccurs="unbounded">
+                <xs:any />
+            </xs:sequence>
+            <xs:attributeGroup ref="core_attributes" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="v-box">
+        <xs:annotation>
+            <xs:documentation>Vertical box. All child elements are arranged vertically in this box.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence maxOccurs="unbounded">
+                <xs:any />
+            </xs:sequence>
+            <xs:attributeGroup ref="core_attributes" />
+        </xs:complexType>
+    </xs:element>
+
+    <!-- /////////////////////////////////////////////////////////////////////////////// -->
+
+    <xs:element name="chart-h-row">
+        <xs:annotation>
+            <xs:documentation>Draw horizontal row chart.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                    <xs:element name="value">
+                        <xs:complexType>
+                            <xs:choice minOccurs="1" maxOccurs="unbounded">
+                                <xs:element name="state" type="colored_state" />
+                                <xs:element name="mod" type="colored_mod" />
+                            </xs:choice>
+                            <xs:attribute name="src" type="xs:string" use="required"/>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:choice>
+            </xs:sequence>
+            <xs:attributeGroup ref="core_attributes" />
+        </xs:complexType>
+    </xs:element>
+
+    <!-- /////////////////////////////////////////////////////////////////////////////// -->
+
+    <xs:element name="chart-v-row">
+        <xs:annotation>
+            <xs:documentation>Draw vertical row chart.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                    <xs:element name="value">
+                        <xs:complexType>
+                            <xs:choice minOccurs="1" maxOccurs="unbounded">
+                                <xs:element name="state" type="colored_state" />
+                                <xs:element name="mod" type="colored_mod" />
+                            </xs:choice>
+                            <xs:attribute name="src" type="xs:string" use="required"/>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:choice>
+            </xs:sequence>
+            <xs:attributeGroup ref="core_attributes" />
+        </xs:complexType>
+    </xs:element>
+
+    <!-- /////////////////////////////////////////////////////////////////////////////// -->
+
+    <xs:element name="chart-pie">
+        <xs:annotation>
+            <xs:documentation>Draw pie chart.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                    <xs:element name="value">
+                        <xs:complexType>
+                            <xs:choice minOccurs="1" maxOccurs="unbounded">
+                                <xs:element name="state" type="colored_state" />
+                                <xs:element name="mod" type="colored_mod" />
+                            </xs:choice>
+                            <xs:attribute name="src" type="xs:string" use="required"/>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:choice>
+            </xs:sequence>
+            <xs:attributeGroup ref="core_attributes" />
+            <xs:attribute name="start-angle" type="xs:integer" />
+        </xs:complexType>
+    </xs:element>
+
+    <!-- /////////////////////////////////////////////////////////////////////////////// -->
+
+    <xs:attributeGroup name="slider_attributes">
+        <xs:attribute name="background" type="xs:string"/>
+        <xs:attribute name="background-start" type="xs:string"/>
+        <xs:attribute name="background-end" type="xs:string"/>
+        <xs:attribute name="ball" type="xs:string"/>
+        <xs:attribute name="margin-start" type="xs:integer"/>
+        <xs:attribute name="margin-end" type="xs:integer"/>
+    </xs:attributeGroup>
+
+    <xs:complexType name="slider_type">
+        <xs:sequence>
+            <xs:choice minOccurs="1" maxOccurs="unbounded">
+                <xs:element name="state">
+                    <xs:complexType>
+                        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                            <xs:element name="mod">
+                                <xs:complexType>
+                                    <xs:attributeGroup ref="slider_attributes" />
+                                    <xs:attributeGroup ref="mod_attributes" />
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attributeGroup ref="slider_attributes" />
+                        <xs:attributeGroup ref="state_attributes" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="mod">
+                    <xs:complexType>
+                        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                            <xs:element name="state">
+                                <xs:complexType>
+                                    <xs:attributeGroup ref="slider_attributes" />
+                                    <xs:attributeGroup ref="state_attributes" />
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attributeGroup ref="slider_attributes" />
+                        <xs:attributeGroup ref="mod_attributes" />
+                    </xs:complexType>
+                </xs:element>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attributeGroup ref="core_attributes" />
+        <xs:attribute name="value" type="xs:string"/>
+        <xs:attribute name="max-value" type="xs:string"/>
+    </xs:complexType>
+
+    <!-- /////////////////////////////////////////////////////////////////////////////// -->
+
+    <xs:element name="h-slider" type="slider_type">
+        <xs:annotation>
+            <xs:documentation>Horizontal slider.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="v-slider" type="slider_type">
+        <xs:annotation>
+            <xs:documentation>Vertical slider.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    
+    <!-- /////////////////////////////////////////////////////////////////////////////// -->
+
+    <xs:attributeGroup name="image_set_attributes">
+        <xs:attribute name="count" type="xs:integer"/>
+        <xs:attribute name="vertical" type="xs:boolean"/>
+        <xs:attribute name="file" type="xs:anyURI"/>
+    </xs:attributeGroup>
+
+    <xs:complexType name="image_set_state">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="mod">
+                <xs:complexType>
+                    <xs:attributeGroup ref="image_set_attributes" />
+                    <xs:attributeGroup ref="mod_attributes" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="image_set_attributes" />
+        <xs:attributeGroup ref="state_attributes" />
+    </xs:complexType>
+
+    <xs:complexType name="image_set_mod">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="state">
+                <xs:complexType>
+                    <xs:attributeGroup ref="image_set_attributes" />
+                    <xs:attributeGroup ref="state_attributes" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="image_set_attributes" />
+        <xs:attributeGroup ref="mod_attributes" />
+    </xs:complexType>
+
+
+    <xs:element name="chart-image-set">
+        <xs:annotation>
+            <xs:documentation>Draw image from the images set depending of the parameter value.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                    <xs:element name="state" type="image_set_state" />
+                    <xs:element name="mod" type="image_set_mod" />
+                </xs:choice>
+            </xs:sequence>
+            <xs:attributeGroup ref="core_attributes" />
+            <xs:attribute name="src" type="xs:string"/>
+            <xs:attribute name="total" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- //////////////////////////////////////////////////////////////////////////////////// -->
+
+    <xs:attributeGroup name="alphabet_attributes">
+        <xs:attribute name="vertical" type="xs:boolean"/>
+        <xs:attribute name="file" type="xs:anyURI"/>
+    </xs:attributeGroup>
+
+
+    <xs:complexType name="alphabet_state">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="mod">
+                <xs:complexType>
+                    <xs:attributeGroup ref="alphabet_attributes" />
+                    <xs:attributeGroup ref="mod_attributes" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="alphabet_attributes" />
+        <xs:attributeGroup ref="state_attributes" />
+    </xs:complexType>
+
+    <xs:complexType name="alphabet_mod">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="state">
+                <xs:complexType>
+                    <xs:attributeGroup ref="alphabet_attributes" />
+                    <xs:attributeGroup ref="state_attributes" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="alphabet_attributes" />
+        <xs:attributeGroup ref="mod_attributes" />
+    </xs:complexType>
+
+    <xs:complexType name="alphabet_type">
+        <xs:sequence>
+            <xs:choice minOccurs="1" maxOccurs="unbounded">
+                <xs:element name="state" type="alphabet_state" />
+                <xs:element name="mod" type="alphabet_mod" />
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="text" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:attributeGroup name="units_attributes">
+        <xs:attribute name="vertical" type="xs:boolean"/>
+        <xs:attribute name="file" type="xs:anyURI"/>
+        <xs:attribute name="states" type="xs:integer"/>
+    </xs:attributeGroup>
+
+
+    <xs:complexType name="units_state">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="mod">
+                <xs:complexType>
+                    <xs:attributeGroup ref="units_attributes" />
+                    <xs:attributeGroup ref="mod_attributes" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="units_attributes" />
+        <xs:attributeGroup ref="state_attributes" />
+    </xs:complexType>
+
+    <xs:complexType name="units_mod">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="state">
+                <xs:complexType>
+                    <xs:attributeGroup ref="units_attributes" />
+                    <xs:attributeGroup ref="state_attributes" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attributeGroup ref="units_attributes" />
+        <xs:attributeGroup ref="mod_attributes" />
+    </xs:complexType>
+
+
+    <xs:complexType name="units_type">
+        <xs:sequence>
+            <xs:choice minOccurs="1" maxOccurs="unbounded">
+                <xs:element name="state" type="units_state" />
+                <xs:element name="mod" type="units_mod" />
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="mod" type="xs:string" use="required"/>
+        <xs:attribute name="position">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="left"/>
+                    <xs:enumeration value="right"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:element name="text-image">
+        <xs:annotation>
+            <xs:documentation>Draw text with images.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                    <xs:element name="alphabet" type="alphabet_type" />
+                    <xs:element name="units" type="units_type" />
+                </xs:choice>
+            </xs:sequence>
+            <xs:attributeGroup ref="core_attributes" />
+            <xs:attribute name="src" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- ////////////////////////////////////////////////////////////////////////////// -->
+
+    <xs:element name="image-rotate">
+        <xs:annotation>
+            <xs:documentation>Rotate image depending of the parameter value.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                    <xs:element name="state" type="image_state" />
+                    <xs:element name="mod" type="image_mod" />
+                </xs:choice>
+            </xs:sequence>
+            <xs:attributeGroup ref="core_attributes" />
+            <xs:attribute name="src" type="xs:string"/>
+            <xs:attribute name="total" type="xs:string"/>
+            <xs:attribute name="start-angle" type="xs:integer"/>
+            <xs:attribute name="end-angle" type="xs:integer"/>
+            <xs:attribute name="rotate-x" type="xs:integer"/>
+            <xs:attribute name="rotate-y" type="xs:integer"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ////////////////////////////////////////////////////////////////////////////// -->
+
+    <xs:element name="histogram-image-stretch">
+        <xs:annotation>
+            <xs:documentation>Histogram with stretched images.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attributeGroup ref="core_attributes" />
+            <xs:attribute name="src" type="xs:string" />
+            <xs:attribute name="max" type="xs:string" />
+            <xs:attribute name="start-from" type="histogram_start_from"/>
+            <xs:attribute name="dir" type="histogram_direction"/>
+            <xs:attribute name="file" type="xs:anyURI" />
+            <xs:attributeGroup ref="sizing_margins" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="histogram-image-tile">
+        <xs:annotation>
+            <xs:documentation>Histogram with tiled images.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attributeGroup ref="core_attributes" />
+            <xs:attribute name="src" type="xs:string" />
+            <xs:attribute name="max" type="xs:string" />
+            <xs:attribute name="start-from" type="histogram_start_from"/>
+            <xs:attribute name="dir" type="histogram_direction"/>
+            <xs:attribute name="file" type="xs:anyURI" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="icon">
+        <xs:annotation>
+            <xs:documentation>Draw icon. The icon file is in the src parameter.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attributeGroup ref="core_attributes" />
+            <xs:attribute name="src" type="xs:string"/>
+            <xs:attribute name="deficon" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+    
+</xs:schema>
