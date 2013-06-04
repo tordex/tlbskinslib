@@ -306,8 +306,11 @@ BOOL TxSkin::elImageTextUnits::loadXML( IXMLDOMNode* node, LPCWSTR baseurl )
 	BOOL ret = TxSkin::skin_element::loadXML(node, baseurl);
 	m_atRight = xmlGetAttributeValueSTRArray(node, L"position", 1, L"left\0right\0");
 	loadXMLStates(node, baseurl);
-	m_mod_by_units = true;
-	makeStr(m_modParam, m_param);
+	m_mod_by_units = xmlGetAttributeValueBOOL(node, L"mod-by-units", FALSE) == TRUE;
+	if(m_mod_by_units)
+	{
+		makeStr(m_modParam, m_param);
+	}
 	return ret;
 }
 

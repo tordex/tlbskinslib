@@ -828,7 +828,7 @@
                 <xs:element name="mod" type="units_mod" />
             </xs:choice>
         </xs:sequence>
-        <xs:attribute name="mod" type="xs:string" use="required"/>
+        <xs:attribute name="mod" type="xs:string"/>
         <xs:attribute name="position">
             <xs:simpleType>
                 <xs:restriction base="xs:string">
@@ -837,6 +837,7 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="mod-by-units" type="xs:boolean"/>
     </xs:complexType>
 
     <xs:element name="text-image">

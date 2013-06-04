@@ -674,3 +674,28 @@ BOOL TxSkin::skin::setUnitsString( LPCWSTR paramID, LPCWSTR val, int sliceID /*=
 	}
 	return FALSE;
 }
+
+int TxSkin::skin::getUnitsInt( LPCWSTR paramID, int sliceID /*= 0*/ )
+{
+	TxSkin::parameter* param = findParam(paramID);
+	if(param)
+	{
+		return param->getIntUnits(sliceID);
+	}
+	return 0;
+}
+
+BOOL TxSkin::skin::setUnitsInt( LPCWSTR paramID, int val, int sliceID /*= 0*/ )
+{
+	TxSkin::parameter* param = findParam(paramID);
+	if(param)
+	{
+		int oldVal = param->getIntUnits(sliceID);
+		if(val != oldVal)
+		{
+			param->setIntUnits(val, sliceID);
+			return TRUE;
+		}
+	}
+	return FALSE;
+}

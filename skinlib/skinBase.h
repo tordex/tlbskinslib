@@ -60,6 +60,8 @@ namespace TxSkin
 		BOOL	setParamString(LPCWSTR paramID, LPCWSTR val, int sliceID = 0);
 		LPCWSTR	getUnitsString(LPCWSTR paramID, int sliceID = 0);
 		BOOL	setUnitsString(LPCWSTR paramID, LPCWSTR val, int sliceID = 0);
+		int		getUnitsInt(LPCWSTR paramID, int sliceID = 0);
+		BOOL	setUnitsInt(LPCWSTR paramID, int val, int sliceID = 0);
 		BOOL	mouseOver(int x, int y);
 		BOOL	mouseLeave();
 		BOOL	lButtonDown(int x, int y);
