@@ -94,11 +94,11 @@ namespace TxSkin
 		LPWSTR val = xmlGetAttributeSTR(item, attrName);
 		if(val)
 		{
-			if(!StrCmpI(val, L"true"))
+			if(!StrCmpI(val, L"true") || !StrCmpI(val, L"1"))
 			{
 				delete val;
 				return TRUE;
-			} else if(!StrCmpI(val, L"false"))
+			} else if(!StrCmpI(val, L"false") || !StrCmpI(val, L"0"))
 			{
 				delete val;
 				return FALSE;

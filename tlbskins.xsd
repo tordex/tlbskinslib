@@ -1,21 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <xs:attributeGroup name="core_attributes">
-        <xs:attribute name="command" type="xs:string"/>
-        <xs:attribute name="mod" type="xs:string"/>
+        <xs:attribute name="command" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Command to run on element click.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="mod" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Modification parameter ID. Can be used to change the element appearance when modparam is changed.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="x" type="xs:integer"/>
         <xs:attribute name="y" type="xs:integer"/>
         <xs:attribute name="width" type="xs:integer"/>
         <xs:attribute name="height" type="xs:integer"/>
-        <xs:attribute name="flex" type="xs:integer"/>
+        <xs:attribute name="flex" type="xs:integer">
+            <xs:annotation>
+                <xs:documentation>Used inside v-box and h-bix elements to automatically calculate the element height or width.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="margin-left" type="xs:integer"/>
         <xs:attribute name="margin-right" type="xs:integer"/>
         <xs:attribute name="margin-top" type="xs:integer"/>
         <xs:attribute name="margin-bottom" type="xs:integer"/>
         <xs:attribute name="min-width" type="xs:integer"/>
         <xs:attribute name="min-height" type="xs:integer"/>
-        <xs:attribute name="float" type="xs:boolean"/>
+        <xs:attribute name="float" type="xs:boolean">
+            <xs:annotation>
+                <xs:documentation>Set into true to expand element to the parent size.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="valign">
+            <xs:annotation>
+                <xs:documentation>Vetical alignment.</xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:string">
                     <xs:enumeration value="top"/>
@@ -26,6 +45,9 @@
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="halign">
+            <xs:annotation>
+                <xs:documentation>Horizontal alignment.</xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:string">
                     <xs:enumeration value="left"/>
@@ -35,6 +57,47 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="text_core_attributes">
+        <xs:attribute name="font" type="xs:string" />
+        <xs:attribute name="bold" type="xs:boolean" />
+        <xs:attribute name="italic" type="xs:boolean" />
+        <xs:attribute name="antialias" type="xs:boolean" />
+        <xs:attribute name="quality">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="default"/>
+                    <xs:enumeration value="draft"/>
+                    <xs:enumeration value="proof"/>
+                    <xs:enumeration value="nonantialiased"/>
+                    <xs:enumeration value="antialiased"/>
+                    <xs:enumeration value="cleartype"/>
+                    <xs:enumeration value="cleartype natural"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="glow-size" type="xs:integer" />
+        <xs:attribute name="font-size" type="xs:integer" />
+        <xs:attribute name="size-type">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="cell"/>
+                    <xs:enumeration value="char"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="align">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="left"/>
+                    <xs:enumeration value="right"/>
+                    <xs:enumeration value="center"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="v-center" type="xs:boolean" />
+        <xs:attribute name="single-line" type="xs:boolean" />
     </xs:attributeGroup>
 
     <xs:attributeGroup name="sizing_margins">
@@ -347,13 +410,8 @@
                 </xs:choice>
             </xs:sequence>
             <xs:attributeGroup ref="core_attributes" />
+            <xs:attributeGroup ref="text_core_attributes" />
             <xs:attribute name="src" type="xs:string" />
-            <xs:attribute name="font" type="xs:string" />
-            <xs:attribute name="bold" type="xs:boolean" />
-            <xs:attribute name="italic" type="xs:boolean" />
-            <xs:attribute name="antialias" type="xs:boolean" />
-            <xs:attribute name="glow-size" type="xs:integer" />
-            <xs:attribute name="font-size" type="xs:integer" />
             <xs:attribute name="units">
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
@@ -363,25 +421,6 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="size-type">
-                <xs:simpleType>
-                    <xs:restriction base="xs:string">
-                        <xs:enumeration value="cell"/>
-                        <xs:enumeration value="char"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="align">
-                <xs:simpleType>
-                    <xs:restriction base="xs:string">
-                        <xs:enumeration value="left"/>
-                        <xs:enumeration value="right"/>
-                        <xs:enumeration value="center"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="v-center" type="xs:boolean" />
-            <xs:attribute name="single-line" type="xs:boolean" />
         </xs:complexType>
     </xs:element>
 
@@ -423,41 +462,51 @@
                 </xs:choice>
             </xs:sequence>
             <xs:attributeGroup ref="core_attributes" />
+            <xs:attributeGroup ref="text_core_attributes" />
             <xs:attribute name="text" type="xs:string" />
-            <xs:attribute name="font" type="xs:string" />
-            <xs:attribute name="bold" type="xs:boolean" />
-            <xs:attribute name="italic" type="xs:boolean" />
-            <xs:attribute name="antialias" type="xs:boolean" />
-            <xs:attribute name="glow-size" type="xs:integer" />
-            <xs:attribute name="font-size" type="xs:integer" />
-            <xs:attribute name="units-side">
-                <xs:simpleType>
-                    <xs:restriction base="xs:string">
-                        <xs:enumeration value="left"/>
-                        <xs:enumeration value="right"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="units" type="xs:string" />
-            <xs:attribute name="size-type">
-                <xs:simpleType>
-                    <xs:restriction base="xs:string">
-                        <xs:enumeration value="cell"/>
-                        <xs:enumeration value="char"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="align">
-                <xs:simpleType>
-                    <xs:restriction base="xs:string">
-                        <xs:enumeration value="left"/>
-                        <xs:enumeration value="right"/>
-                        <xs:enumeration value="center"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="v-center" type="xs:boolean" />
-            <xs:attribute name="single-line" type="xs:boolean" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="label">
+        <xs:annotation>
+            <xs:documentation>Draw text string.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                    <xs:element name="state">
+                        <xs:complexType>
+                            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                                <xs:element name="mod">
+                                    <xs:complexType>
+                                        <xs:attributeGroup ref="text_attributes" />
+                                        <xs:attributeGroup ref="mod_attributes" />
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                            <xs:attributeGroup ref="text_attributes" />
+                            <xs:attributeGroup ref="state_attributes" />
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="mod">
+                        <xs:complexType>
+                            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                                <xs:element name="state">
+                                    <xs:complexType>
+                                        <xs:attributeGroup ref="text_attributes" />
+                                        <xs:attributeGroup ref="state_attributes" />
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                            <xs:attributeGroup ref="text_attributes" />
+                            <xs:attributeGroup ref="mod_attributes" />
+                        </xs:complexType>
+                    </xs:element>
+                </xs:choice>
+            </xs:sequence>
+            <xs:attributeGroup ref="core_attributes" />
+            <xs:attributeGroup ref="text_core_attributes" />
+            <xs:attribute name="text" type="xs:string" />
         </xs:complexType>
     </xs:element>
 
@@ -541,6 +590,11 @@
                 <xs:any />
             </xs:sequence>
             <xs:attributeGroup ref="core_attributes" />
+            <xs:attribute name="adapt" type="xs:boolean" default="true">
+                <xs:annotation>
+                    <xs:documentation>If true, the width of the last element with flex can be expanded to adapt element to the box width.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
 
@@ -553,6 +607,11 @@
                 <xs:any />
             </xs:sequence>
             <xs:attributeGroup ref="core_attributes" />
+            <xs:attribute name="adapt" type="xs:boolean" default="true">
+                <xs:annotation>
+                    <xs:documentation>If true, the height of the last element with flex can be expanded to adapt element to the box height.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
 

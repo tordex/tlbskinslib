@@ -11,12 +11,16 @@ namespace TxSkin
 		txArray<int>		m_vals;
 		int					m_maxValsCount;
 		int					m_sliceID;
+		BOOL				m_autoFit;
 	public:
 		sliceParameter(int sliceID, int maxValsCount);
 		~sliceParameter();
 
 		void	stringVal(LPCWSTR val)		{ makeStr(m_stringVal, val);	}
 		LPCWSTR	stringVal()					{ return m_stringVal;			}
+
+		void	autoFit(BOOL val)			{ m_autoFit = val;				}
+		BOOL	autoFit()					{ return m_autoFit;				}
 
 		void	units_str(LPCWSTR val)		{ makeStr(m_units_str, val);	}
 		LPCWSTR	units_str()					{ return m_units_str;			}
@@ -53,6 +57,9 @@ namespace TxSkin
 
 		void	setIntVal(int val, int sliceID);
 		int		getIntVal(int sliceID);
+
+		BOOL	setAutoFit(int val, int sliceID);
+		BOOL	getAutoFit(int sliceID);
 
 		void	setIntUnits(int val, int sliceID);
 		int		getIntUnits(int sliceID);

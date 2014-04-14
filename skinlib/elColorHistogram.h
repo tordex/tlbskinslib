@@ -29,7 +29,7 @@ namespace TxSkin
 		virtual BOOL isUsedParam(LPCWSTR paramID);
 
 	private:
-		void draw_h_histogram(cairo_t* cr, int left, int top, int* data, int count, int max_val);
-		void draw_v_histogram(cairo_t* cr, int left, int top, int* data, int count, int max_val);
+		void draw_h_histogram(cairo_t* cr, int left, int top, int* data, int count, int max_val, BOOL autoFit);
+		void draw_v_histogram(cairo_t* cr, int left, int top, int* data, int count, int max_val, BOOL autoFit);
 	};
 }

@@ -6,6 +6,7 @@ using namespace TxSkin;
 
 TxSkin::elVBOX::elVBOX( skin* skin) : skin_element(skin)
 {
+	m_adapt = TRUE;
 }
 
 TxSkin::elVBOX::~elVBOX()
@@ -16,6 +17,8 @@ TxSkin::elVBOX::~elVBOX()
 BOOL TxSkin::elVBOX::loadXML( IXMLDOMNode* node, LPCWSTR baseurl )
 {
 	BOOL ret = skin_element::loadXML(node, baseurl);
+
+	m_adapt = xmlGetAttributeValueBOOL(node, TEXT("adapt"),	TRUE);
 
 	IXMLDOMNode* child = NULL;
 	node->get_firstChild(&child);
@@ -100,7 +103,7 @@ void TxSkin::elVBOX::init()
 				{
 					processed_flexes--;
 					int fh = (int) (flex_height * (double) m_elements[i]->flex() / (double) flex_count) - (m_elements[i]->margin_top() + m_elements[i]->margin_bottom());
-					if(processed_flexes <= 0 && processed_flex_height + fh != flex_height)
+					if(processed_flexes <= 0 && processed_flex_height + fh != flex_height && m_adapt)
 					{
 						fh = flex_height - processed_flex_height - (m_elements[i]->margin_top() + m_elements[i]->margin_bottom());
 					}

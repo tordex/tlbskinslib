@@ -5,6 +5,7 @@ namespace TxSkin
 {
 	class elVBOX : public skin_element
 	{
+		BOOL	m_adapt;
 	public:
 		elVBOX(skin* skin);
 		~elVBOX();

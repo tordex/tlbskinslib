@@ -12,11 +12,11 @@ TxSkin::elFormatedText::elFormatedText( skin* skin,
 										BOOL italic					/*= FALSE*/, 
 										UINT flags					/*= 0*/, 
 										TxSkin::color color			/*= TxSkin::color(0, 0, 0, 0)*/, 
-										BOOL antialias				/*= TRUE*/, 
+										DWORD quality				/*= CLEARTYPE_QUALITY*/, 
 										int glowSize				/*= 0*/, 
 										TxSkin::color glowColor		/*= TxSkin::color(0, 0, 0, 0)*/, 
 										LPCWSTR id					/*= NULL*/, 
-										LPCWSTR modParam			/*= NULL*/) : elText(skin, NULL, fontName, bold, italic, flags, color, antialias, glowSize, glowColor, id, modParam)
+										LPCWSTR modParam			/*= NULL*/) : elText(skin, NULL, fontName, bold, italic, flags, color, quality, glowSize, glowColor, id, modParam)
 {
 	m_text = NULL;
 	makeStr(m_text,	text);

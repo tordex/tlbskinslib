@@ -41,120 +41,164 @@ void elTileImageHistogram::draw( cairo_t* cr, int left, int top, int sliceID )
 
 	int count = 0;
 	int* vals = m_skin->getParamValues(m_param, &count, sliceID);
+	BOOL autoFit = m_skin->getParamAutoFit(m_param, sliceID);
 
 	MARGINS mg = {0};
 
 	int max_val		= m_skin->getParamInt(m_maxValParam, sliceID);
 
-	switch(m_startFrom)
+	if(max_val || autoFit)
 	{
-	case startFromBottom:
-		{
-			int idx = 0;
-			if(m_dir == dirPositive)
-			{
-				for(int x = left + X(); x <= left + X() + width() - m_img->getWidth() && idx < count; x += m_img->getWidth(), idx++)
-				{
-					double yy = top + Y() + height() - (double) vals[idx] * (double) height() / (double) max_val;
-					for(int y = top + Y() + height() - m_img->getHeight(); y >= (int) yy; y -= m_img->getHeight())
-					{
-						m_img->draw(hdc, x, y);
-					}
-				}
-			} else
-			{
-				for(int x = left + X() + width() - m_img->getWidth(); x >= left + X() && idx < count; x -= m_img->getWidth(), idx++)
-				{
-					double yy = top + Y() + height() - (double) vals[idx] * (double) height() / (double) max_val;
-					for(int y = top + Y() + height() - m_img->getHeight(); y >= (int) yy; y -= m_img->getHeight())
-					{
-						m_img->draw(hdc, x, y);
-					}
-				}
-			}
-		}
-		break;
-	case startFromTop:
-		{
-			int idx = 0;
-			if(m_dir == dirPositive)
-			{
-				for(int x = left + X(); x <= left + X() + width() - m_img->getWidth() && idx < count; x += m_img->getWidth(), idx++)
-				{
-					double yy = top + Y() + (double) vals[idx] * (double) height() / (double) max_val;
-					for(int y = top + Y(); y <= (int) yy - m_img->getHeight(); y += m_img->getHeight())
-					{
-						m_img->draw(hdc, x, y);
-					}
-				}
-			} else
-			{
-				for(int x = left + X() + width() - m_img->getWidth(); x >= left + X() && idx < count; x -= m_img->getWidth(), idx++)
-				{
-					double yy = top + Y() + (double) vals[idx] * (double) height() / (double) max_val;
-					for(int y = top + Y(); y <= (int) yy - m_img->getHeight(); y += m_img->getHeight())
-					{
-						m_img->draw(hdc, x, y);
-					}
-				}
-			}
-		}
-		break;
-	case startFromLeft:
-		{
-			int idx = 0;
-			if(m_dir == dirPositive)
-			{
-				for(int y = top + Y(); y <= top + Y() + height() - m_img->getHeight() && idx < count; y += m_img->getHeight(), idx++)
-				{
-					double xx = left + X() + (double) vals[idx] * (double) width() / (double) max_val;
-					for(int x = left + X(); x <= (int) xx - m_img->getWidth(); x += m_img->getWidth())
-					{
-						m_img->draw(hdc, x, y);
-					}
-				}
-			} else
-			{
-				for(int y = top + Y() + height() - m_img->getHeight(); y >= top + Y() && idx < count; y -= m_img->getHeight(), idx++)
-				{
-					double xx = left + X() + (double) vals[idx] * (double) width() / (double) max_val;
-					for(int x = left + X(); x <= (int) xx - m_img->getWidth(); x += m_img->getWidth())
-					{
-						m_img->draw(hdc, x, y);
-					}
-				}
-			}
-		}
-		break;
-	case startFromRight:
-		{
-			int idx = 0;
-			if(m_dir == dirPositive)
-			{
-				for(int y = top + Y(); y <= top + Y() + height() - m_img->getHeight() && idx < count; y += m_img->getHeight(), idx++)
-				{
-					double xx = left + X() + width() - (double) vals[idx] * (double) width() / (double) max_val;
-					for(int x = left + X() + width() - m_img->getWidth(); x >= (int) xx; x -= m_img->getWidth())
-					{
-						m_img->draw(hdc, x, y);
-					}
-				}
-			} else
-			{
-				for(int y = top + Y() + height() - m_img->getHeight(); y >= top + Y() && idx < count; y -= m_img->getHeight(), idx++)
-				{
-					double xx = left + X() + width() - (double) vals[idx] * (double) width() / (double) max_val;
-					for(int x = left + X() + width() - m_img->getWidth(); x >= (int) xx; x -= m_img->getWidth())
-					{
-						m_img->draw(hdc, x, y);
-					}
-				}
-			}
-		}
-		break;
-	}
+		int val;
 
-	GdiFlush();
+		if(autoFit)
+		{
+			switch(m_startFrom)
+			{
+			case startFromBottom:
+			case startFromTop:
+				{
+					max_val = 0;
+					int idx = 0;
+					for(int x = left + X(); x <= left + X() + width() - m_img->getWidth() && idx < count; x += m_img->getWidth(), idx++)
+					{
+						max_val = max(max_val, vals[idx]);
+					}
+				}
+				break;
+			case startFromLeft:
+			case startFromRight:
+				{
+					max_val = 0;
+					int idx = 0;
+					for(int y = top + Y(); y <= top + Y() + height() - m_img->getHeight() && idx < count; y += m_img->getHeight(), idx++)
+					{
+						max_val = max(max_val, vals[idx]);
+					}
+				}
+				break;
+			}
+			if(!max_val) return;
+		}
+
+		switch(m_startFrom)
+		{
+		case startFromBottom:
+			{
+				int idx = 0;
+				if(m_dir == dirPositive)
+				{
+					for(int x = left + X(); x <= left + X() + width() - m_img->getWidth() && idx < count; x += m_img->getWidth(), idx++)
+					{
+						val  = (vals[idx] > max_val) ? max_val : vals[idx];
+						double yy = top + Y() + height() - (double) val * (double) height() / (double) max_val;
+						for(int y = top + Y() + height() - m_img->getHeight(); y >= (int) yy; y -= m_img->getHeight())
+						{
+							m_img->draw(hdc, x, y);
+						}
+					}
+				} else
+				{
+					for(int x = left + X() + width() - m_img->getWidth(); x >= left + X() && idx < count; x -= m_img->getWidth(), idx++)
+					{
+						val  = (vals[idx] > max_val) ? max_val : vals[idx];
+						double yy = top + Y() + height() - (double) val * (double) height() / (double) max_val;
+						for(int y = top + Y() + height() - m_img->getHeight(); y >= (int) yy; y -= m_img->getHeight())
+						{
+							m_img->draw(hdc, x, y);
+						}
+					}
+				}
+			}
+			break;
+		case startFromTop:
+			{
+				int idx = 0;
+				if(m_dir == dirPositive)
+				{
+					for(int x = left + X(); x <= left + X() + width() - m_img->getWidth() && idx < count; x += m_img->getWidth(), idx++)
+					{
+						val  = (vals[idx] > max_val) ? max_val : vals[idx];
+						double yy = top + Y() + (double) val * (double) height() / (double) max_val;
+						for(int y = top + Y(); y <= (int) yy - m_img->getHeight(); y += m_img->getHeight())
+						{
+							m_img->draw(hdc, x, y);
+						}
+					}
+				} else
+				{
+					for(int x = left + X() + width() - m_img->getWidth(); x >= left + X() && idx < count; x -= m_img->getWidth(), idx++)
+					{
+						val  = (vals[idx] > max_val) ? max_val : vals[idx];
+						double yy = top + Y() + (double) val * (double) height() / (double) max_val;
+						for(int y = top + Y(); y <= (int) yy - m_img->getHeight(); y += m_img->getHeight())
+						{
+							m_img->draw(hdc, x, y);
+						}
+					}
+				}
+			}
+			break;
+		case startFromLeft:
+			{
+				int idx = 0;
+				if(m_dir == dirPositive)
+				{
+					for(int y = top + Y(); y <= top + Y() + height() - m_img->getHeight() && idx < count; y += m_img->getHeight(), idx++)
+					{
+						val  = (vals[idx] > max_val) ? max_val : vals[idx];
+						double xx = left + X() + (double) val * (double) width() / (double) max_val;
+						for(int x = left + X(); x <= (int) xx - m_img->getWidth(); x += m_img->getWidth())
+						{
+							m_img->draw(hdc, x, y);
+						}
+					}
+				} else
+				{
+					for(int y = top + Y() + height() - m_img->getHeight(); y >= top + Y() && idx < count; y -= m_img->getHeight(), idx++)
+					{
+						val  = (vals[idx] > max_val) ? max_val : vals[idx];
+						double xx = left + X() + (double) val * (double) width() / (double) max_val;
+						for(int x = left + X(); x <= (int) xx - m_img->getWidth(); x += m_img->getWidth())
+						{
+							m_img->draw(hdc, x, y);
+						}
+					}
+				}
+			}
+			break;
+		case startFromRight:
+			{
+				int idx = 0;
+				if(m_dir == dirPositive)
+				{
+					for(int y = top + Y(); y <= top + Y() + height() - m_img->getHeight() && idx < count; y += m_img->getHeight(), idx++)
+					{
+						val  = (vals[idx] > max_val) ? max_val : vals[idx];
+						double xx = left + X() + width() - (double) val * (double) width() / (double) max_val;
+						for(int x = left + X() + width() - m_img->getWidth(); x >= (int) xx; x -= m_img->getWidth())
+						{
+							m_img->draw(hdc, x, y);
+						}
+					}
+				} else
+				{
+					for(int y = top + Y() + height() - m_img->getHeight(); y >= top + Y() && idx < count; y -= m_img->getHeight(), idx++)
+					{
+						val  = (vals[idx] > max_val) ? max_val : vals[idx];
+						double xx = left + X() + width() - (double) val * (double) width() / (double) max_val;
+						for(int x = left + X() + width() - m_img->getWidth(); x >= (int) xx; x -= m_img->getWidth())
+						{
+							m_img->draw(hdc, x, y);
+						}
+					}
+				}
+			}
+			break;
+		}
+
+		GdiFlush();
+	}
 }
 
 BOOL TxSkin::elTileImageHistogram::isUsedParam( LPCWSTR paramID )
@@ -241,99 +285,144 @@ void TxSkin::elStretchImageHistogram::draw( cairo_t* cr, int left, int top, int 
 
 	int count = 0;
 	int* vals = m_skin->getParamValues(m_param, &count, sliceID);
+	BOOL autoFit = m_skin->getParamAutoFit(m_param, sliceID);
 
 	MARGINS mg = {0};
 
 	int max_val		= m_skin->getParamInt(m_maxValParam, sliceID);
 
-	CTxSkinDIB skin;
-	skin.load(m_img, &m_margins, FALSE, FALSE);
-
-	switch(m_startFrom)
+	if(max_val || autoFit)
 	{
-	case startFromBottom:
-		{
-			int idx = 0;
-			if(m_dir == dirPositive)
-			{
-				for(int x = left + X(); x <= left + X() + width() - m_img->getWidth() && idx < count; x += m_img->getWidth(), idx++)
-				{
-					int h = (int) ((double) vals[idx] * (double) height() / (double) max_val);
-					skin.draw(hdc, &make_rect(x, top + Y() + height() - h, m_img->getWidth(), h), NULL);
-				}
-			} else
-			{
-				for(int x = left + X() + width() - m_img->getWidth(); x >= left + X() && idx < count; x -= m_img->getWidth(), idx++)
-				{
-					int h = (int) ((double) vals[idx] * (double) height() / (double) max_val);
-					skin.draw(hdc, &make_rect(x, top + Y() + height() - h, m_img->getWidth(), h), NULL);
-				}
-			}
-		}
-		break;
-	case startFromTop:
-		{
-			int idx = 0;
-			if(m_dir == dirPositive)
-			{
-				for(int x = left + X(); x <= left + X() + width() - m_img->getWidth() && idx < count; x += m_img->getWidth(), idx++)
-				{
-					int h = (int) ((double) vals[idx] * (double) height() / (double) max_val);
-					skin.draw(hdc, &make_rect(x, top + Y(), m_img->getWidth(), h), NULL);
-				}
-			} else
-			{
-				for(int x = left + X() + width() - m_img->getWidth(); x >= left + X() && idx < count; x -= m_img->getWidth(), idx++)
-				{
-					int h = (int) ((double) vals[idx] * (double) height() / (double) max_val);
-					skin.draw(hdc, &make_rect(x, top + Y(), m_img->getWidth(), h), NULL);
-				}
-			}
-		}
-		break;
-	case startFromLeft:
-		{
-			int idx = 0;
-			if(m_dir == dirPositive)
-			{
-				for(int y = top + Y(); y <= top + Y() + height() - m_img->getHeight() && idx < count; y += m_img->getHeight(), idx++)
-				{
-					int w = (int) ((double) vals[idx] * (double) width() / (double) max_val);
-					skin.draw(hdc, &make_rect(left + X(), y, w, m_img->getHeight()), NULL);
-				}
-			} else
-			{
-				for(int y = top + Y() + height() - m_img->getHeight(); y >= top + Y() && idx < count; y -= m_img->getHeight(), idx++)
-				{
-					int w = (int) ((double) vals[idx] * (double) width() / (double) max_val);
-					skin.draw(hdc, &make_rect(left + X(), y, w, m_img->getHeight()), NULL);
-				}
-			}
-		}
-		break;
-	case startFromRight:
-		{
-			int idx = 0;
-			if(m_dir == dirPositive)
-			{
-				for(int y = top + Y(); y <= top + Y() + height() - m_img->getHeight() && idx < count; y += m_img->getHeight(), idx++)
-				{
-					int w = (int) ((double) vals[idx] * (double) width() / (double) max_val);
-					skin.draw(hdc, &make_rect(left + X() + width() - w, y, w, m_img->getHeight()), NULL);
-				}
-			} else
-			{
-				for(int y = top + Y() + height() - m_img->getHeight(); y >= top + Y() && idx < count; y -= m_img->getHeight(), idx++)
-				{
-					int w = (int) ((double) vals[idx] * (double) width() / (double) max_val);
-					skin.draw(hdc, &make_rect(left + X() + width() - w, y, w, m_img->getHeight()), NULL);
-				}
-			}
-		}
-		break;
-	}
+		int val;
 
-	GdiFlush();
+		if(autoFit)
+		{
+			switch(m_startFrom)
+			{
+			case startFromBottom:
+			case startFromTop:
+				{
+					max_val = 0;
+					int idx = 0;
+					for(int x = left + X(); x <= left + X() + width() - m_img->getWidth() && idx < count; x += m_img->getWidth(), idx++)
+					{
+						max_val = max(max_val, vals[idx]);
+					}
+				}
+				break;
+			case startFromLeft:
+			case startFromRight:
+				{
+					max_val = 0;
+					int idx = 0;
+					for(int y = top + Y(); y <= top + Y() + height() - m_img->getHeight() && idx < count; y += m_img->getHeight(), idx++)
+					{
+						max_val = max(max_val, vals[idx]);
+					}
+				}
+				break;
+			}
+			if(!max_val) return;
+		}
+
+
+		CTxSkinDIB skin;
+		skin.load(m_img, &m_margins, FALSE, FALSE);
+
+		switch(m_startFrom)
+		{
+		case startFromBottom:
+			{
+				int idx = 0;
+				if(m_dir == dirPositive)
+				{
+					for(int x = left + X(); x <= left + X() + width() - m_img->getWidth() && idx < count; x += m_img->getWidth(), idx++)
+					{
+						val  = (vals[idx] > max_val) ? max_val : vals[idx];
+						int h = (int) ((double) val * (double) height() / (double) max_val);
+						skin.draw(hdc, &make_rect(x, top + Y() + height() - h, m_img->getWidth(), h), NULL);
+					}
+				} else
+				{
+					for(int x = left + X() + width() - m_img->getWidth(); x >= left + X() && idx < count; x -= m_img->getWidth(), idx++)
+					{
+						val  = (vals[idx] > max_val) ? max_val : vals[idx];
+						int h = (int) ((double) val * (double) height() / (double) max_val);
+						skin.draw(hdc, &make_rect(x, top + Y() + height() - h, m_img->getWidth(), h), NULL);
+					}
+				}
+			}
+			break;
+		case startFromTop:
+			{
+				int idx = 0;
+				if(m_dir == dirPositive)
+				{
+					for(int x = left + X(); x <= left + X() + width() - m_img->getWidth() && idx < count; x += m_img->getWidth(), idx++)
+					{
+						val  = (vals[idx] > max_val) ? max_val : vals[idx];
+						int h = (int) ((double) val * (double) height() / (double) max_val);
+						skin.draw(hdc, &make_rect(x, top + Y(), m_img->getWidth(), h), NULL);
+					}
+				} else
+				{
+					for(int x = left + X() + width() - m_img->getWidth(); x >= left + X() && idx < count; x -= m_img->getWidth(), idx++)
+					{
+						val  = (vals[idx] > max_val) ? max_val : vals[idx];
+						int h = (int) ((double) val * (double) height() / (double) max_val);
+						skin.draw(hdc, &make_rect(x, top + Y(), m_img->getWidth(), h), NULL);
+					}
+				}
+			}
+			break;
+		case startFromLeft:
+			{
+				int idx = 0;
+				if(m_dir == dirPositive)
+				{
+					for(int y = top + Y(); y <= top + Y() + height() - m_img->getHeight() && idx < count; y += m_img->getHeight(), idx++)
+					{
+						val  = (vals[idx] > max_val) ? max_val : vals[idx];
+						int w = (int) ((double) val * (double) width() / (double) max_val);
+						skin.draw(hdc, &make_rect(left + X(), y, w, m_img->getHeight()), NULL);
+					}
+				} else
+				{
+					for(int y = top + Y() + height() - m_img->getHeight(); y >= top + Y() && idx < count; y -= m_img->getHeight(), idx++)
+					{
+						val  = (vals[idx] > max_val) ? max_val : vals[idx];
+						int w = (int) ((double) val * (double) width() / (double) max_val);
+						skin.draw(hdc, &make_rect(left + X(), y, w, m_img->getHeight()), NULL);
+					}
+				}
+			}
+			break;
+		case startFromRight:
+			{
+				int idx = 0;
+				if(m_dir == dirPositive)
+				{
+					for(int y = top + Y(); y <= top + Y() + height() - m_img->getHeight() && idx < count; y += m_img->getHeight(), idx++)
+					{
+						val  = (vals[idx] > max_val) ? max_val : vals[idx];
+						int w = (int) ((double) val * (double) width() / (double) max_val);
+						skin.draw(hdc, &make_rect(left + X() + width() - w, y, w, m_img->getHeight()), NULL);
+					}
+				} else
+				{
+					for(int y = top + Y() + height() - m_img->getHeight(); y >= top + Y() && idx < count; y -= m_img->getHeight(), idx++)
+					{
+						val  = (vals[idx] > max_val) ? max_val : vals[idx];
+						int w = (int) ((double) val * (double) width() / (double) max_val);
+						skin.draw(hdc, &make_rect(left + X() + width() - w, y, w, m_img->getHeight()), NULL);
+					}
+				}
+			}
+			break;
+		}
+
+		GdiFlush();
+	}
 }
 
 BOOL TxSkin::elStretchImageHistogram::isUsedParam( LPCWSTR paramID )

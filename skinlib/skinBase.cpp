@@ -699,3 +699,24 @@ BOOL TxSkin::skin::setUnitsInt( LPCWSTR paramID, int val, int sliceID /*= 0*/ )
 	}
 	return FALSE;
 }
+
+BOOL TxSkin::skin::setParamAutoFit( LPCWSTR paramID, BOOL autoFit, int sliceID )
+{
+	TxSkin::parameter* param = findParam(paramID);
+	if(param)
+	{
+		return param->setAutoFit(autoFit, sliceID);
+	}
+	return FALSE;
+}
+
+BOOL TxSkin::skin::getParamAutoFit( LPCWSTR paramID, int sliceID /*= 0*/ )
+{
+	TxSkin::parameter* param = findParam(paramID);
+	if(param)
+	{
+		return param->getAutoFit(sliceID);
+	}
+	return FALSE;
+}
+

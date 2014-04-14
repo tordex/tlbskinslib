@@ -5,7 +5,7 @@
 
 using namespace TxSkin;
 
-TxSkin::elText::elText( skin* skin, LPCWSTR paramID, LPCWSTR fontName, BOOL bold, BOOL italic, UINT flags, TxSkin::color color, BOOL antialias, int glowSize /*= 0*/, TxSkin::color glowColor /*= TxSkin::color(0, 0, 0, 0)*/, LPCWSTR id /*= NULL*/, LPCWSTR modParam ) : skin_element(skin, id)
+TxSkin::elText::elText( skin* skin, LPCWSTR paramID, LPCWSTR fontName, BOOL bold, BOOL italic, UINT flags, TxSkin::color color, DWORD quality, int glowSize /*= 0*/, TxSkin::color glowColor /*= TxSkin::color(0, 0, 0, 0)*/, LPCWSTR id /*= NULL*/, LPCWSTR modParam ) : skin_element(skin, id)
 {
 	m_size_type		= font_size_type_cell;
 	m_show_units	= show_units_none;
@@ -16,7 +16,7 @@ TxSkin::elText::elText( skin* skin, LPCWSTR paramID, LPCWSTR fontName, BOOL bold
 	m_flags			= flags;
 	m_hFont			= NULL;
 	m_glowSize		= glowSize;
-	m_antialias		= antialias;
+	m_quality		= quality;
 	m_fontSize		= 0;
 	m_modParam		= NULL;
 
@@ -88,13 +88,7 @@ void TxSkin::elText::init()
 	lf.lfCharSet		= ANSI_CHARSET;
 	lf.lfOutPrecision	= OUT_DEFAULT_PRECIS;
 	lf.lfClipPrecision	= CLIP_DEFAULT_PRECIS;
-	if(m_antialias)
-	{
-		lf.lfQuality		= CLEARTYPE_QUALITY;
-	} else
-	{
-		lf.lfQuality		= NONANTIALIASED_QUALITY;
-	}
+	lf.lfQuality		= (BYTE) m_quality;
 	lf.lfPitchAndFamily = FF_DONTCARE;
 	StringCchCopy(lf.lfFaceName, LF_FACESIZE, m_fontName);
 
@@ -168,9 +162,13 @@ BOOL TxSkin::elText::loadXML( IXMLDOMNode* node, LPCWSTR baseurl )
 	{
 		makeStr(m_fontName, L"Arial");
 	}
+
+	BOOL antialias = TRUE;
+
 	m_bold			= xmlGetAttributeValueBOOL(node, L"bold", FALSE);
 	m_italic		= xmlGetAttributeValueBOOL(node, L"italic", FALSE);
-	m_antialias		= xmlGetAttributeValueBOOL(node, L"antialias", TRUE);
+	antialias		= xmlGetAttributeValueBOOL(node, L"antialias", TRUE);
+	m_quality		= xmlGetAttributeValueSTRArray(node, L"quality", antialias ? CLEARTYPE_QUALITY : NONANTIALIASED_QUALITY, L"default\0draft\0proof\0nonantialiased\0antialiased\0cleartype\0cleartype natural\0");
 	m_glowSize		= xmlGetAttributeIntAlt(node, L"glow-size;glowSize", 0);
 	m_fontSize		= xmlGetAttributeIntAlt(node, L"font-size;fontSize", 0);
 	m_show_units	= (show_units) xmlGetAttributeValueSTRArrayAlt(node, L"units", 0, L"none\0left\0right\0");

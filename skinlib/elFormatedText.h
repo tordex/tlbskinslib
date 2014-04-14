@@ -22,7 +22,7 @@ namespace TxSkin
 						BOOL italic					= FALSE, 
 						UINT flags					= 0, 
 						TxSkin::color color			= TxSkin::color(0, 0, 0, 0), 
-						BOOL antialias				= TRUE, 
+						DWORD quality				= CLEARTYPE_QUALITY, 
 						int glowSize				= 0, 
 						TxSkin::color glowColor		= TxSkin::color(0, 0, 0, 0), 
 						LPCWSTR id					= NULL, 

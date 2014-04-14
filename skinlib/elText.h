@@ -34,7 +34,7 @@ namespace TxSkin
 		BOOL					m_italic;
 		HFONT					m_hFont;
 		int						m_glowSize;
-		BOOL					m_antialias;
+		DWORD					m_quality;
 		int						m_fontSize;
 		font_size_type			m_size_type;
 	public:
@@ -45,7 +45,7 @@ namespace TxSkin
 				BOOL italic					= FALSE, 
 				UINT flags					= 0, 
 				TxSkin::color color			= TxSkin::color(0, 0, 0, 0), 
-				BOOL antialias				= TRUE, 
+				DWORD quality				= CLEARTYPE_QUALITY, 
 				int glowSize				= 0, 
 				TxSkin::color glowColor		= TxSkin::color(0, 0, 0, 0), 
 				LPCWSTR id					= NULL, 

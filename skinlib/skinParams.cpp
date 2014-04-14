@@ -180,9 +180,38 @@ LPCWSTR TxSkin::parameter::getStringUnits( int sliceID )
 	return NULL;
 }
 
+BOOL TxSkin::parameter::setAutoFit( int val, int sliceID )
+{
+	BOOL ret = FALSE;
+
+	sliceParameter* slice = getSlice(sliceID);
+	if(slice)
+	{
+		if(slice->autoFit() != val)
+		{
+			ret = TRUE;
+			slice->autoFit(val);
+		}
+	}
+
+	return ret;
+}
+
+BOOL TxSkin::parameter::getAutoFit( int sliceID )
+{
+	sliceParameter* slice = getSlice(sliceID);
+	if(slice)
+	{
+		return slice->autoFit();
+	}
+
+	return FALSE;
+}
+
 //////////////////////////////////////////////////////////////////////////
 sliceParameter::sliceParameter( int sliceID, int maxValsCount )
 {
+	m_autoFit		= FALSE;
 	m_sliceID		= sliceID;
 	m_maxValsCount	= maxValsCount;
 	m_stringVal		= NULL;

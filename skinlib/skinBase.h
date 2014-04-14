@@ -83,6 +83,8 @@ namespace TxSkin
 		int		findSliceXY(int x, int y, LPRECT rcSlice);
 		BOOL	isInCapture()	{ return m_elCapture ? TRUE : FALSE; }
 		BOOL	isUsedParam(LPCWSTR paramID);
+		BOOL	setParamAutoFit(LPCWSTR paramID, BOOL autoFit, int sliceID = 0);
+		BOOL	getParamAutoFit(LPCWSTR paramID, int sliceID = 0);
 
 		ISkinCallBack* getCallback()	{ return m_callback; }
 

@@ -6,6 +6,7 @@ using namespace TxSkin;
 
 elHBOX::elHBOX( skin* skin ) : skin_element(skin)
 {
+	m_adapt = TRUE;
 }
 
 elHBOX::~elHBOX()
@@ -16,6 +17,8 @@ elHBOX::~elHBOX()
 BOOL TxSkin::elHBOX::loadXML( IXMLDOMNode* node, LPCWSTR baseurl )
 {
 	BOOL ret = skin_element::loadXML(node, baseurl);
+
+	m_adapt = xmlGetAttributeValueBOOL(node, TEXT("adapt"),	TRUE);
 
 	IXMLDOMNode* child = NULL;
 	node->get_firstChild(&child);
@@ -102,7 +105,7 @@ void TxSkin::elHBOX::init()
 				{
 					processed_flexes--;
 					int fh = (int) (flex_width * (double) m_elements[i]->flex() / (double) flex_count) - (m_elements[i]->margin_left() + m_elements[i]->margin_right());
-					if(processed_flexes <= 0 && processed_flex_width + fh != flex_width)
+					if(processed_flexes <= 0 && processed_flex_width + fh != flex_width && m_adapt)
 					{
 						fh = flex_width - processed_flex_width - (m_elements[i]->margin_left() + m_elements[i]->margin_right());
 					}
