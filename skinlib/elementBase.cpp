@@ -164,7 +164,7 @@ skin_element* TxSkin::skin_element::findElement( int x, int y, int sliceID )
 	POINT pt;
 	pt.x = x; pt.y = y;
 	skin_element* found = NULL;
-	for(int i = m_elements.GetCount() - 1; i >= 0; i-- )
+	for(int i = m_elements.GetCount() - 1; i >= 0 && !found; i-- )
 	{
 		if(m_elements[i]->id())
 		{
@@ -179,7 +179,6 @@ skin_element* TxSkin::skin_element::findElement( int x, int y, int sliceID )
 				if(PtInRect(&rcItem, pt))
 				{
 					found = m_elements[i];
-					break;
 				}
 			}
 		} else if(m_elements[i]->m_elements.GetCount())
@@ -187,7 +186,6 @@ skin_element* TxSkin::skin_element::findElement( int x, int y, int sliceID )
 			if(m_elements[i]->getState(sliceID) != elStateDisabled)
 			{
 				found = m_elements[i]->findElement(x - X(), y - Y(), sliceID);
-				break;
 			}
 		}
 	}

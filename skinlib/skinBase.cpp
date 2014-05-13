@@ -12,6 +12,8 @@ using namespace TxSkin;
 
 TxSkin::skin::skin(void)
 {
+	m_downSlice		= -1;
+	m_clickOnSlice	= FALSE;
 	m_fit			= fit_to_none;
 	m_surface		= NULL;
 	m_cr			= NULL;
@@ -188,10 +190,20 @@ BOOL skin::lButtonDown( int x, int y )
 	RECT rcSlice;
 	int sliceID = findSliceXY(x, y, &rcSlice);
 
-	skin_element* elOver = m_base->findElement(x - rcSlice.left, y - rcSlice.top, sliceID);
-	if(elOver)
+	if(!m_clickOnSlice)
 	{
-		return elOver->lButtonDown(x - rcSlice.left, y - rcSlice.top, sliceID);
+		skin_element* elOver = m_base->findElement(x - rcSlice.left, y - rcSlice.top, sliceID);
+		if(elOver)
+		{
+			return elOver->lButtonDown(x - rcSlice.left, y - rcSlice.top, sliceID);
+		}
+	} else
+	{
+		if(sliceID >= 0)
+		{
+			m_downSlice = sliceID;
+			return TRUE;
+		}
 	}
 	return FALSE;
 }
@@ -199,21 +211,37 @@ BOOL skin::lButtonDown( int x, int y )
 BOOL skin::lButtonUp( int x, int y )
 {
 	BOOL ret = FALSE;
-	RECT rcSlice;
-	if(m_elCapture)
+	if(!m_clickOnSlice)
 	{
-		getSliceRectID(m_elSliceID, &rcSlice);
-		ret = m_elCapture->lButtonUp(x, y, m_elSliceID);
+		RECT rcSlice;
+		if(m_elCapture)
+		{
+			getSliceRectID(m_elSliceID, &rcSlice);
+			ret = m_elCapture->lButtonUp(x, y, m_elSliceID);
+		} else
+		{
+			int sliceID = findSliceXY(x, y, &rcSlice);
+			ret = m_base->lButtonUp(x - rcSlice.left, y - rcSlice.top, sliceID);
+		}
 	} else
 	{
-		int sliceID = findSliceXY(x - rcSlice.left, y - rcSlice.top, &rcSlice);
-		ret = m_base->lButtonUp(x - rcSlice.left, y - rcSlice.top, sliceID);
+		RECT rcSlice;
+		int sliceID = findSliceXY(x, y, &rcSlice);
+		if(sliceID == m_downSlice)
+		{
+			if(m_callback)
+			{
+				m_callback->OnElementClick(NULL, sliceID);
+			}
+		}
+		m_downSlice = -1;
 	}
 	return ret;
 }
 
 BOOL skin::mouseLeave()
 {
+	m_downSlice = -1;
 	return m_base->mouseLeave(m_elSliceID);
 }
 
@@ -415,6 +443,12 @@ void TxSkin::skin::clear()
 	m_elSliceID		= -1;
 	delete m_base;
 	m_base = new elRoot(this);
+
+	for(int i=0; i < m_slises.GetCount(); i++)
+	{
+		m_base->addSlice(m_slises[i]);
+	}
+
 }
 
 CTxDIB* TxSkin::skin::loadIniImage( LPCWSTR section, LPCWSTR key, LPCWSTR iniFile )

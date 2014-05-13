@@ -16,14 +16,16 @@ namespace TxSkin
 
 		txArray<parameter*>	m_params;
 		txArray<LPWSTR>			m_iconPaths;
-		skin_element*				m_base;
+		skin_element*			m_base;
 		ISkinCallBack*			m_callback;
 		txArray<int>			m_slises;
 		sliceMode				m_sliceMode;
 		int						m_sliceRowCol;
 
+		BOOL					m_clickOnSlice;
+		int						m_downSlice;
 		int						m_elSliceID;
-		skin_element*				m_elCapture;
+		skin_element*			m_elCapture;
 
 		// cache
 		cairo_surface_t*		m_surface;
@@ -85,6 +87,7 @@ namespace TxSkin
 		BOOL	isUsedParam(LPCWSTR paramID);
 		BOOL	setParamAutoFit(LPCWSTR paramID, BOOL autoFit, int sliceID = 0);
 		BOOL	getParamAutoFit(LPCWSTR paramID, int sliceID = 0);
+		void	setClickOnSlice(BOOL val)	{ m_clickOnSlice = val; }
 
 		ISkinCallBack* getCallback()	{ return m_callback; }
 
