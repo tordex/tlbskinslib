@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="skinslib">
+      <UniqueIdentifier>{6af8e137-c279-4c0e-9533-c150bcd10dd6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Xsd Include="tlbskins.xsd">
+      <Filter>Header Files</Filter>
+    </Xsd>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="tlbskinslib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\arrays.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\brush.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\color.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elColorChartBase.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elColorHistogram.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elColorRect.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elementBase.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elFormatedText.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elHBox.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elHRowChart.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elHSlider.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elIcon.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elImage.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elImageChartBase.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elImageHistogram.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elImageHRow.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elImagePieChart.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elImageSetChart.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elImageText.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elImageVRow.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elLabel.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elPieChart.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elRoot.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elRotateImage.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elSliderBase.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elText.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elVBox.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elVRowChart.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\elVSlider.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\pen.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\skinBase.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\skinParams.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\tokenizer.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\TxSkinEngine.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\txSkinInternal.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\types.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\utils.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+    <ClInclude Include="skinlib\xmltools.h">
+      <Filter>skinslib</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="skinlib\brush.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\color.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\createElement.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elColorChartBase.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elColorHistogram.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elColorRect.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elementBase.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elFormatedText.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elHBox.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elHRowChart.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elHSlider.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elIcon.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elImage.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elImageChartBase.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elImageHistogram.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elImageHRow.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elImagePieChart.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elImageSetChart.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elImageText.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elImageVRow.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elLabel.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elPieChart.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elRoot.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elRotateImage.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elSliderBase.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elText.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elVBox.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elVRowChart.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\elVSlider.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\pen.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\skinBase.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\skinParams.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\tokenizer.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\utils.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+    <ClCompile Include="skinlib\xmltools.cpp">
+      <Filter>skinslib</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

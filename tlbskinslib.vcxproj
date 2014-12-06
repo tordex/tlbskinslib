@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8CAE3999-2FE7-4C3A-A674-554E52DCD068}</ProjectGuid>
+    <RootNamespace>tlbskinslib</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.30501.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>skinlib;..\cairo\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;TLBSKINSLIB_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>uxtheme.lib;msimg32.lib;cairo.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(SolutionDir)lib\$(Configuration)\$(Platform)\$(ProjectName).lib</OutputFile>
+      <AdditionalLibraryDirectories>..\cairo\32\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>skinlib;..\cairo\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>uxtheme.lib;msimg32.lib;cairo.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(SolutionDir)lib\$(Configuration)\$(Platform)\$(ProjectName).lib</OutputFile>
+      <AdditionalLibraryDirectories>..\cairo\64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>skinlib;..\cairo\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;TLBSKINSLIB_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>uxtheme.lib;msimg32.lib;cairo.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(SolutionDir)lib\$(Configuration)\$(Platform)\$(ProjectName).lib</OutputFile>
+      <AdditionalLibraryDirectories>..\cairo\32\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>skinlib;..\cairo\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;TLBSKINSLIB_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>uxtheme.lib;msimg32.lib;cairo.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(SolutionDir)lib\$(Configuration)\$(Platform)\$(ProjectName).lib</OutputFile>
+      <AdditionalLibraryDirectories>..\cairo\64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Xsd Include="tlbskins.xsd">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Xsd>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="skinlib\arrays.h" />
+    <ClInclude Include="skinlib\brush.h" />
+    <ClInclude Include="skinlib\color.h" />
+    <ClInclude Include="skinlib\elColorChartBase.h" />
+    <ClInclude Include="skinlib\elColorHistogram.h" />
+    <ClInclude Include="skinlib\elColorRect.h" />
+    <ClInclude Include="skinlib\elementBase.h" />
+    <ClInclude Include="skinlib\elFormatedText.h" />
+    <ClInclude Include="skinlib\elHBox.h" />
+    <ClInclude Include="skinlib\elHRowChart.h" />
+    <ClInclude Include="skinlib\elHSlider.h" />
+    <ClInclude Include="skinlib\elIcon.h" />
+    <ClInclude Include="skinlib\elImage.h" />
+    <ClInclude Include="skinlib\elImageChartBase.h" />
+    <ClInclude Include="skinlib\elImageHistogram.h" />
+    <ClInclude Include="skinlib\elImageHRow.h" />
+    <ClInclude Include="skinlib\elImagePieChart.h" />
+    <ClInclude Include="skinlib\elImageSetChart.h" />
+    <ClInclude Include="skinlib\elImageText.h" />
+    <ClInclude Include="skinlib\elImageVRow.h" />
+    <ClInclude Include="skinlib\elLabel.h" />
+    <ClInclude Include="skinlib\elPieChart.h" />
+    <ClInclude Include="skinlib\elRoot.h" />
+    <ClInclude Include="skinlib\elRotateImage.h" />
+    <ClInclude Include="skinlib\elSliderBase.h" />
+    <ClInclude Include="skinlib\elText.h" />
+    <ClInclude Include="skinlib\elVBox.h" />
+    <ClInclude Include="skinlib\elVRowChart.h" />
+    <ClInclude Include="skinlib\elVSlider.h" />
+    <ClInclude Include="skinlib\pen.h" />
+    <ClInclude Include="skinlib\skinBase.h" />
+    <ClInclude Include="skinlib\skinParams.h" />
+    <ClInclude Include="skinlib\tokenizer.h" />
+    <ClInclude Include="skinlib\TxSkinEngine.h" />
+    <ClInclude Include="skinlib\txSkinInternal.h" />
+    <ClInclude Include="skinlib\types.h" />
+    <ClInclude Include="skinlib\utils.h" />
+    <ClInclude Include="skinlib\xmltools.h" />
+    <ClInclude Include="tlbskinslib.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="skinlib\brush.cpp" />
+    <ClCompile Include="skinlib\color.cpp" />
+    <ClCompile Include="skinlib\createElement.cpp" />
+    <ClCompile Include="skinlib\elColorChartBase.cpp" />
+    <ClCompile Include="skinlib\elColorHistogram.cpp" />
+    <ClCompile Include="skinlib\elColorRect.cpp" />
+    <ClCompile Include="skinlib\elementBase.cpp" />
+    <ClCompile Include="skinlib\elFormatedText.cpp" />
+    <ClCompile Include="skinlib\elHBox.cpp" />
+    <ClCompile Include="skinlib\elHRowChart.cpp" />
+    <ClCompile Include="skinlib\elHSlider.cpp" />
+    <ClCompile Include="skinlib\elIcon.cpp" />
+    <ClCompile Include="skinlib\elImage.cpp" />
+    <ClCompile Include="skinlib\elImageChartBase.cpp" />
+    <ClCompile Include="skinlib\elImageHistogram.cpp" />
+    <ClCompile Include="skinlib\elImageHRow.cpp" />
+    <ClCompile Include="skinlib\elImagePieChart.cpp" />
+    <ClCompile Include="skinlib\elImageSetChart.cpp" />
+    <ClCompile Include="skinlib\elImageText.cpp" />
+    <ClCompile Include="skinlib\elImageVRow.cpp" />
+    <ClCompile Include="skinlib\elLabel.cpp" />
+    <ClCompile Include="skinlib\elPieChart.cpp" />
+    <ClCompile Include="skinlib\elRoot.cpp" />
+    <ClCompile Include="skinlib\elRotateImage.cpp" />
+    <ClCompile Include="skinlib\elSliderBase.cpp" />
+    <ClCompile Include="skinlib\elText.cpp" />
+    <ClCompile Include="skinlib\elVBox.cpp" />
+    <ClCompile Include="skinlib\elVRowChart.cpp" />
+    <ClCompile Include="skinlib\elVSlider.cpp" />
+    <ClCompile Include="skinlib\pen.cpp" />
+    <ClCompile Include="skinlib\skinBase.cpp" />
+    <ClCompile Include="skinlib\skinParams.cpp" />
+    <ClCompile Include="skinlib\tokenizer.cpp" />
+    <ClCompile Include="skinlib\utils.cpp" />
+    <ClCompile Include="skinlib\xmltools.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
